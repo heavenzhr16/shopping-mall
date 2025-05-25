@@ -1,10 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:${MYSQL_PORT}/${MYSQL_DATABASE}?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
-    username: ${MYSQL_USERNAME}
-    password: ${MYSQL_ROOT_PASSWORD}
+    url: jdbc:mysql://localhost:3308/shopping_mall?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: team1
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     show-sql: true
     properties:
@@ -14,6 +13,10 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQLDialect
+  security:
+    user:
+      name: disabled
+      password: disabled
 
 logging:
   pattern:
@@ -22,3 +25,6 @@ logging:
     encoding: UTF-8
   encoding:
     charset: UTF-8
+
+jwt:
+  secret: NxD@49#jKw!rMv7Up2zLt$gQpY%1fA3eTb8CkD$HzLwRm
