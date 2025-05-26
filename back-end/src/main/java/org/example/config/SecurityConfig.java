@@ -37,6 +37,8 @@ public class SecurityConfig {
                         "/api/auth/**",
                         "/public/**"    // 접근 퍼블릭 예시 >> 이건 수정해야함
                 ).permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")  // ✅ 관리자 전용 >> 이건 수정해야함
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN") // ✅ 일반 사용자 & 관리자 접근 >> 이건 수정해야함
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
