@@ -1,12 +1,18 @@
 package org.example.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "users")
 public class UsersEntity {
+    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -63,55 +69,4 @@ public class UsersEntity {
     // 기본 생성자
     public UsersEntity() {}
 
-    // Getters and Setters
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
-
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
-
-    public String getBirthdate() { return birthdate; }
-    public void setBirthdate(String birthdate) { this.birthdate = birthdate; }
-
-    public String getNickname() { return nickname; }
-    public void setNickname(String nickname) { this.nickname = nickname; }
-
-    public Long getPhoneNum() { return phoneNum; }
-    public void setPhoneNum(Long phoneNum) { this.phoneNum = phoneNum; }
-
-    public String getLoginType() { return loginType; }
-    public void setLoginType(String loginType) { this.loginType = loginType; }
-
-    public String getUserStatus() { return userStatus; }
-    public void setUserStatus(String userStatus) { this.userStatus = userStatus; }
-
-    public LocalDateTime getJoinedAt() { return joinedAt; }
-    public void setJoinedAt(LocalDateTime joinedAt) { this.joinedAt = joinedAt; }
-
-    public LocalDateTime getLastLoginAt() { return lastLoginAt; }
-    public void setLastLoginAt(LocalDateTime lastLoginAt) { this.lastLoginAt = lastLoginAt; }
-
-    public List<OrdersEntity> getOrders() { return orders; }
-    public void setOrders(List<OrdersEntity> orders) { this.orders = orders; }
-
-    public List<CartEntity> getCarts() { return carts; }
-    public void setCarts(List<CartEntity> carts) { this.carts = carts; }
-
-    public List<InquiryEntity> getInquiries() { return inquiries; }
-    public void setInquiries(List<InquiryEntity> inquiries) { this.inquiries = inquiries; }
-
-    public List<ReviewsEntity> getReviews() { return reviews; }
-    public void setReviews(List<ReviewsEntity> reviews) { this.reviews = reviews; }
-
-    public List<WishListsEntity> getWishLists() { return wishLists; }
-    public void setWishLists(List<WishListsEntity> wishLists) { this.wishLists = wishLists; }
-
-    public List<UserInfoEntity> getUserInfos() { return userInfos; }
-    public void setUserInfos(List<UserInfoEntity> userInfos) { this.userInfos = userInfos; }
 }

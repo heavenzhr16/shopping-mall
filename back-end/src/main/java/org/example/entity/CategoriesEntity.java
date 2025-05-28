@@ -1,11 +1,17 @@
 package org.example.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "categories")
 public class CategoriesEntity {
+    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
@@ -29,22 +35,4 @@ public class CategoriesEntity {
     // 기본 생성자
     public CategoriesEntity() {}
 
-    // Getters and Setters
-    public Long getCategoryId() { return categoryId; }
-    public void setCategoryId(Long categoryId) { this.categoryId = categoryId; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public Long getParentId() { return parentId; }
-    public void setParentId(Long parentId) { this.parentId = parentId; }
-
-    public Long getDepth() { return depth; }
-    public void setDepth(Long depth) { this.depth = depth; }
-
-    public String getGenderType() { return genderType; }
-    public void setGenderType(String genderType) { this.genderType = genderType; }
-
-    public List<ProductsEntity> getProducts() { return products; }
-    public void setProducts(List<ProductsEntity> products) { this.products = products; }
 }
