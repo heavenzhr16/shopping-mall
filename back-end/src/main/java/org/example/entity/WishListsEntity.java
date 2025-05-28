@@ -1,11 +1,17 @@
 package org.example.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "wish_lists")
 public class WishListsEntity {
+    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wishlist_id")
@@ -25,16 +31,4 @@ public class WishListsEntity {
     // 기본 생성자
     public WishListsEntity() {}
 
-    // Getters and Setters
-    public Long getWishlistId() { return wishlistId; }
-    public void setWishlistId(Long wishlistId) { this.wishlistId = wishlistId; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-
-    public UsersEntity getUser() { return user; }
-    public void setUser(UsersEntity user) { this.user = user; }
-
-    public ProductsEntity getProduct() { return product; }
-    public void setProduct(ProductsEntity product) { this.product = product; }
 }

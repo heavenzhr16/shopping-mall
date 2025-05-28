@@ -1,11 +1,17 @@
 package org.example.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "inquiryreply")
 public class InquiryReplyEntity {
+    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reply_id")
@@ -31,22 +37,4 @@ public class InquiryReplyEntity {
     // 기본 생성자
     public InquiryReplyEntity() {}
 
-    // Getters and Setters
-    public Long getReplyId() { return replyId; }
-    public void setReplyId(Long replyId) { this.replyId = replyId; }
-
-    public String getReplyTitle() { return replyTitle; }
-    public void setReplyTitle(String replyTitle) { this.replyTitle = replyTitle; }
-
-    public String getReplyContent() { return replyContent; }
-    public void setReplyContent(String replyContent) { this.replyContent = replyContent; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-
-    public InquiryEntity getInquiry() { return inquiry; }
-    public void setInquiry(InquiryEntity inquiry) { this.inquiry = inquiry; }
-
-    public UsersEntity getUser() { return user; }
-    public void setUser(UsersEntity user) { this.user = user; }
 }

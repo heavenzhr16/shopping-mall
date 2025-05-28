@@ -1,12 +1,18 @@
 package org.example.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "orders")
 public class OrdersEntity {
+    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
@@ -40,31 +46,4 @@ public class OrdersEntity {
     // 기본 생성자
     public OrdersEntity() {}
 
-    // Getters and Setters
-    public Long getOrderId() { return orderId; }
-    public void setOrderId(Long orderId) { this.orderId = orderId; }
-
-    public Long getTotalPrice() { return totalPrice; }
-    public void setTotalPrice(Long totalPrice) { this.totalPrice = totalPrice; }
-
-    public LocalDateTime getOrderedAt() { return orderedAt; }
-    public void setOrderedAt(LocalDateTime orderedAt) { this.orderedAt = orderedAt; }
-
-    public LocalDateTime getPaidAt() { return paidAt; }
-    public void setPaidAt(LocalDateTime paidAt) { this.paidAt = paidAt; }
-
-    public String getPayMethod() { return payMethod; }
-    public void setPayMethod(String payMethod) { this.payMethod = payMethod; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
-
-    public UsersEntity getUser() { return user; }
-    public void setUser(UsersEntity user) { this.user = user; }
-
-    public List<OrderDetailEntity> getOrderDetails() { return orderDetails; }
-    public void setOrderDetails(List<OrderDetailEntity> orderDetails) { this.orderDetails = orderDetails; }
 }
