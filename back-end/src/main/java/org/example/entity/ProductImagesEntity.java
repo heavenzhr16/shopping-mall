@@ -1,11 +1,17 @@
 package org.example.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "product_images")
 public class ProductImagesEntity {
+    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")
@@ -30,22 +36,4 @@ public class ProductImagesEntity {
     // 기본 생성자
     public ProductImagesEntity() {}
 
-    // Getters and Setters
-    public Long getImageId() { return imageId; }
-    public void setImageId(Long imageId) { this.imageId = imageId; }
-
-    public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
-
-    public Boolean getIsMain() { return isMain; }
-    public void setIsMain(Boolean isMain) { this.isMain = isMain; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
-
-    public ProductsEntity getProduct() { return product; }
-    public void setProduct(ProductsEntity product) { this.product = product; }
 }

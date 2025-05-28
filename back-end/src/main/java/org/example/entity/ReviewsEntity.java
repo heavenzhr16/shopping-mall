@@ -1,11 +1,17 @@
 package org.example.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "reviews")
 public class ReviewsEntity {
+    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
@@ -37,28 +43,4 @@ public class ReviewsEntity {
     // 기본 생성자
     public ReviewsEntity() {}
 
-    // Getters and Setters
-    public Long getReviewId() { return reviewId; }
-    public void setReviewId(Long reviewId) { this.reviewId = reviewId; }
-
-    public String getReviewTitle() { return reviewTitle; }
-    public void setReviewTitle(String reviewTitle) { this.reviewTitle = reviewTitle; }
-
-    public String getReviewContent() { return reviewContent; }
-    public void setReviewContent(String reviewContent) { this.reviewContent = reviewContent; }
-
-    public Integer getRating() { return rating; }
-    public void setRating(Integer rating) { this.rating = rating; }
-
-    public String getReviewImages() { return reviewImages; }
-    public void setReviewImages(String reviewImages) { this.reviewImages = reviewImages; }
-
-    public ProductsEntity getProduct() { return product; }
-    public void setProduct(ProductsEntity product) { this.product = product; }
-
-    public UsersEntity getUser() { return user; }
-    public void setUser(UsersEntity user) { this.user = user; }
-
-    public List<ReviewReplyEntity> getReviewReplies() { return reviewReplies; }
-    public void setReviewReplies(List<ReviewReplyEntity> reviewReplies) { this.reviewReplies = reviewReplies; }
 }

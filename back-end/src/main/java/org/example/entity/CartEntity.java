@@ -1,9 +1,14 @@
 package org.example.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "cart")
 @IdClass(CartEntity.CartId.class)
@@ -78,34 +83,4 @@ public class CartEntity {
     // 기본 생성자
     public CartEntity() {}
 
-    // Getters and Setters
-    public Long getCartId() { return cartId; }
-    public void setCartId(Long cartId) { this.cartId = cartId; }
-
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
-
-    public Long getQuantity() { return quantity; }
-    public void setQuantity(Long quantity) { this.quantity = quantity; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-
-    public Boolean getIsChecked() { return isChecked; }
-    public void setIsChecked(Boolean isChecked) { this.isChecked = isChecked; }
-
-    public String getOptionInfo() { return optionInfo; }
-    public void setOptionInfo(String optionInfo) { this.optionInfo = optionInfo; }
-
-    public Long getPriceAtAdd() { return priceAtAdd; }
-    public void setPriceAtAdd(Long priceAtAdd) { this.priceAtAdd = priceAtAdd; }
-
-    public Boolean getIsActive() { return isActive; }
-    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
-
-    public UsersEntity getUser() { return user; }
-    public void setUser(UsersEntity user) { this.user = user; }
-
-    public ProductsEntity getProduct() { return product; }
-    public void setProduct(ProductsEntity product) { this.product = product; }
 }

@@ -1,8 +1,13 @@
 package org.example.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "order_detail")
 @IdClass(OrderDetailEntity.OrderDetailId.class)
@@ -65,22 +70,4 @@ public class OrderDetailEntity {
     // 기본 생성자
     public OrderDetailEntity() {}
 
-    // Getters and Setters
-    public Long getOrderDetailId() { return orderDetailId; }
-    public void setOrderDetailId(Long orderDetailId) { this.orderDetailId = orderDetailId; }
-
-    public Long getOrderId() { return orderId; }
-    public void setOrderId(Long orderId) { this.orderId = orderId; }
-
-    public Long getProductId() { return productId; }
-    public void setProductId(Long productId) { this.productId = productId; }
-
-    public Long getProductCnt() { return productCnt; }
-    public void setProductCnt(Long productCnt) { this.productCnt = productCnt; }
-
-    public Long getPrice() { return price; }
-    public void setPrice(Long price) { this.price = price; }
-
-    public OrdersEntity getOrder() { return order; }
-    public void setOrder(OrdersEntity order) { this.order = order; }
 }

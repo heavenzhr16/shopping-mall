@@ -1,10 +1,16 @@
 package org.example.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "reviewreply")
 public class ReviewReplyEntity {
+    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reply_id")
@@ -23,16 +29,4 @@ public class ReviewReplyEntity {
     // 기본 생성자
     public ReviewReplyEntity() {}
 
-    // Getters and Setters
-    public Long getReplyId() { return replyId; }
-    public void setReplyId(Long replyId) { this.replyId = replyId; }
-
-    public String getCommentTitle() { return commentTitle; }
-    public void setCommentTitle(String commentTitle) { this.commentTitle = commentTitle; }
-
-    public String getReplyContent() { return replyContent; }
-    public void setReplyContent(String replyContent) { this.replyContent = replyContent; }
-
-    public ReviewsEntity getReview() { return review; }
-    public void setReview(ReviewsEntity review) { this.review = review; }
 }
