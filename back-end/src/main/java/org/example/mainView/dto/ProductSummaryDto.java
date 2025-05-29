@@ -16,9 +16,7 @@ public class ProductSummaryDto {
     private String name;
     private Long price;
     private String thumbnailImageUrl;
-    private String productName;
     private int reviewCount;
     private Double discountRate;
-    private String genderType;
 
 }

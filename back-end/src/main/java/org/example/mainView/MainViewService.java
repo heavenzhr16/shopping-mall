@@ -7,7 +7,9 @@ import org.example.mainView.dto.MainProductDto;
 import org.example.mainView.dto.ProductSummaryDto;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -17,29 +19,28 @@ public class MainViewService {
 
     private final ProductsRepository productsRepository;
 
-    public MainProductDto getMainProductsByType(String type) {
-        if (!type.equals("W") && !type.equals("M") && !type.equals("K")) {
-            log.warn("유효하지 않은 type: {}", type);
-            return null; // 또는 CustomException 던져도 좋음
+    public MainProductDto getMainProductsForAllTypes() {
+        Map<String, List<ProductSummaryDto>> weeklyProductsMap = new HashMap<>();
+
+        // W, M, K 각 성별에 대해 주간 베스트 상품 8개씩
+        for (String gender : List.of("W", "M", "K")) {
+            List<ProductsEntity> weekly = productsRepository
+                    .findTop8ByCategory_GenderTypeOrderBySalesCountDesc(gender);
+
+            List<ProductSummaryDto> weeklyDtos = weekly.stream()
+                    .map(this::convertToSummaryDto)
+                    .collect(Collectors.toList());
+
+            weeklyProductsMap.put(gender, weeklyDtos);
         }
 
-        // 성별타입별 판매순 8개
-        List<ProductsEntity> topWeeklyProducts = productsRepository
-                .findTop8ByCategory_GenderTypeOrderBySalesCountDesc(type);
-
-        // 신상품 8개
+        // 신상품 8개는 공통
         List<ProductsEntity> newProducts = productsRepository.findTop8ByOrderByCreatedAtDesc();
-
-        // 엔티티를 DTO로 매핑
-        List<ProductSummaryDto> weeklyDtos = topWeeklyProducts.stream()
-                .map(this::convertToSummaryDto)
-                .collect(Collectors.toList());
-
         List<ProductSummaryDto> newDtos = newProducts.stream()
                 .map(this::convertToSummaryDto)
                 .collect(Collectors.toList());
 
-        return new MainProductDto(weeklyDtos, newDtos);
+        return new MainProductDto(weeklyProductsMap, newDtos);
     }
 
     private ProductSummaryDto convertToSummaryDto(ProductsEntity product) {
@@ -49,7 +50,7 @@ public class MainViewService {
                 .price(product.getPrice())
                 .thumbnailImageUrl(
                         product.getProductImages() != null && !product.getProductImages().isEmpty() ?
-                                product.getProductImages().get(0).getImageUrl() : null
+                                product.getProductImages().get(0).getImageUrl() : "back-end/src/main/resources/static/images/test.jpg"
                 )
                 .discountRate(product.getDiscountRate())
                 .build();
