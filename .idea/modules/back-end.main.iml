@@ -31,6 +31,7 @@
     <orderEntry type="library" name="Gradle: io.jsonwebtoken:jjwt-impl:0.12.3" level="project" />
     <orderEntry type="library" name="Gradle: io.jsonwebtoken:jjwt-jackson:0.12.3" level="project" />
     <orderEntry type="library" name="Gradle: io.jsonwebtoken:jjwt-api:0.12.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-validation:2.7.14" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-json:2.7.14" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter:2.7.14" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.7.14" level="project" />
@@ -47,6 +48,8 @@
     <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-web:5.7.10" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-config:5.7.10" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.5" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-el:9.0.78" level="project" />
+    <orderEntry type="library" name="Gradle: org.hibernate.validator:hibernate-validator:6.2.5.Final" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.5" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.5" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.5" level="project" />
@@ -58,7 +61,6 @@
     <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.30" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.78" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-core:9.0.78" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-el:9.0.78" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-context:5.3.29" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-beans:5.3.29" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-expression:5.3.29" level="project" />
@@ -78,6 +80,7 @@
     <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-core:5.7.10" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.5" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.13.5" level="project" />
+    <orderEntry type="library" name="Gradle: jakarta.validation:jakarta.validation-api:2.0.2" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.2.12" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.17.2" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:jul-to-slf4j:1.7.36" level="project" />

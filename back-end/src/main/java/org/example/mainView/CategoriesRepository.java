@@ -2,6 +2,8 @@ package org.example.mainView;
 
 import org.example.entity.CategoriesEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,4 +17,9 @@ public interface CategoriesRepository extends JpaRepository<CategoriesEntity, Lo
 
     // parentId와 depth로 하위 카테고리 리스트 조회
     List<CategoriesEntity> findByParentIdAndDepth(Long parentId, Long depth);
+
+    @Query("SELECT c.categoryId FROM CategoriesEntity c WHERE c.genderType = :genderType AND c.name = :name AND c.depth = :depth")
+    Optional<Long> findCategoryIdByGenderTypeAndNameAndDepth(@Param("genderType") String genderType,
+                                                             @Param("name") String name,
+                                                             @Param("depth") Long depth);
 }

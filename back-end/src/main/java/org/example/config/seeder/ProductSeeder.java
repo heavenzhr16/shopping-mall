@@ -9,8 +9,11 @@ import org.example.mainView.ProductsRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.example.entity.ColorEntity;
+import org.example.mainView.dto.ColorRepository;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -21,6 +24,7 @@ public class ProductSeeder {
 
     private final ProductsRepository productsRepository;
     private final CategoriesRepository categoriesRepository;
+    private final ColorRepository colorRepository;
 
 
     @Bean
@@ -55,6 +59,15 @@ public class ProductSeeder {
                             product.setCreatedAt(LocalDateTime.now().minusDays(random.nextInt(30)));
                             product.setUpdatedAt(LocalDateTime.now());
                             product.setIsActive(true);
+
+                            // 색상 랜덤 연결
+                            List<ColorEntity> allColors = colorRepository.findAll();
+                            int colorCount = 1 + random.nextInt(3); // 1~3개의 색상 연결
+
+                            Collections.shuffle(allColors);
+                            List<ColorEntity> selectedColors = allColors.subList(0, colorCount);
+                            product.setColors(selectedColors);
+
                             product.setCategory(leaf);
                             product.setDiscountRate(random.nextDouble() * 0.3);
                             product.setSalesCount((long) random.nextInt(200));
