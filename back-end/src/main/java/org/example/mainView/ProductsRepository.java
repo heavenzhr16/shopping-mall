@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface ProductsRepository extends JpaRepository<ProductsEntity, Long> {
 
-    List<ProductsEntity> findTop8ByCategory_GenderTypeOrderBySalesCountDesc(String genderType);
+    List<ProductsEntity> findTop8ByCategory_GenderTypeInOrderBySalesCountDesc(List<String> genders);
     List<ProductsEntity> findTop8ByOrderByCreatedAtDesc();
 
 }

@@ -24,8 +24,17 @@ public class MainViewService {
 
         // W, M, K 각 성별에 대해 주간 베스트 상품 8개씩
         for (String gender : List.of("W", "M", "K")) {
+            List<String> targetGenders;
+            if (gender.equals("W")) {
+                targetGenders = List.of("W", "U");
+            } else if (gender.equals("M")) {
+                targetGenders = List.of("M", "U");
+            } else {
+                targetGenders = List.of("K"); // 아동은 단독
+            }
+
             List<ProductsEntity> weekly = productsRepository
-                    .findTop8ByCategory_GenderTypeOrderBySalesCountDesc(gender);
+                    .findTop8ByCategory_GenderTypeInOrderBySalesCountDesc(targetGenders);
 
             List<ProductSummaryDto> weeklyDtos = weekly.stream()
                     .map(this::convertToSummaryDto)
