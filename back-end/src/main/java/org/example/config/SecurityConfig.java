@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .antMatchers(
                         "/api/auth/**",
                         "/public/**",
+                        "/login_signup/**", // 박준형 : 로그인, 회원가입 임시테스트
                         "/",
                         "/test"
                 ).permitAll()
