@@ -13,7 +13,6 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Valid
 public class LimitedAdminRequestDto {
     List<LimitedProductRequestDto> products; // 상품id, 카테고리, 할인율
     private LocalDateTime startAt;

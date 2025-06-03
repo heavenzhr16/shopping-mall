@@ -9,6 +9,7 @@ import org.example.entity.ProductsEntity;
 import org.example.limitedTime.dto.LimitedAdminRequestDto;
 import org.example.limitedTime.dto.LimitedProductRequestDto;
 import org.example.limitedTime.dto.LimitedUserResponseDto;
+import org.example.limitedTime.dto.UpdateProductDto;
 import org.example.mainView.ProductsRepository;
 import org.example.mainView.ReviewsRepository;
 import org.example.mainView.dto.ProductSummaryDto;
@@ -190,5 +191,27 @@ public class LimitedTimeProductService {
         // 모든 한정 시간 상품 삭제
         limitedTimeProductRepository.deleteAll();
         log.info("모든 한정 시간 상품이 삭제되었습니다.");
+    }
+
+    @Transactional
+    public void updateLimitedTimeProducts(UpdateProductDto dto, String username) {
+        // 토큰에서 관리자 정보 조회
+        AdminEntity admin = adminRepository.findByUsername(username);
+
+        // 기간상품에서 해당 상품 조회
+        Long searchId = dto.getProductId();
+
+        LimitedTimeProductEntity limitedProduct = limitedTimeProductRepository.findByProduct_ProductId(searchId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 한정 시간 상품으로 등록되어 있지 않습니다. ID: " + searchId));
+
+        // 할인율과 카테고리 업데이트
+        limitedProduct.setSpecialDiscountRate(dto.getDiscountRate());
+        limitedProduct.setLimitedCategory(dto.getCategory());
+        limitedProduct.setAdmin(admin);
+
+        //저장
+        limitedTimeProductRepository.save(limitedProduct);
+        log.info("한정 시간 상품 업데이트 완료: ID={}, 할인율={}, 카테고리={}, 관리자={}",
+                searchId, dto.getDiscountRate(), dto.getCategory(), admin.getUsername());
     }
 }

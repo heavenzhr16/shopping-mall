@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.limitedTime.dto.LimitedAdminRequestDto;
 import org.example.limitedTime.dto.LimitedUserResponseDto;
+import org.example.limitedTime.dto.UpdateProductDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -72,7 +73,7 @@ public class LimitedTimeProductController {
             @RequestParam List<Long> productId
     ) {
         log.info("관리자 한정 시간 상품 삭제 요청: {}", productId);
-        limitedTimeProductService.deleteLimitedTimeProduct(productId,);
+        limitedTimeProductService.deleteLimitedTimeProduct(productId);
 
         return ResponseEntity.ok().build();
     }
@@ -85,4 +86,20 @@ public class LimitedTimeProductController {
         limitedTimeProductService.deleteAllLimitedTimeProducts();
         return ResponseEntity.ok().build();
     }
+
+    // 일부 상품의 할인율, 카테고리 변경 변경
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/updateProducts")
+    public ResponseEntity<?> updateLimitedTimeProducts(
+            @RequestBody UpdateProductDto dto
+            ) {
+        log.info("관리자 한정 시간 상품 일부 업데이트 요청: {}", dto);
+
+        // 토큰에서 사용자 이름 추출
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        limitedTimeProductService.updateLimitedTimeProducts(dto, username);
+
+        return ResponseEntity.ok().build();
+    }
+
 }
