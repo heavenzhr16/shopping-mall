@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+<!--  http://localhost:8080/login_signup/login.html  -->
     <title>로그인 테스트</title>
 </head>
 <body>
@@ -28,9 +29,15 @@
             },
             body: JSON.stringify(data)
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    // 오류 응답 텍스트 출력
+                    return response.text().then(text => { throw new Error(text); });
+                }
+                return response.json();
+            })
             .then(result => alert("로그인 성공! JWT: " + result.token))
-            .catch(error => alert("오류: " + error));
+            .catch(error => alert("로그인 실패: " + error.message));
     });
 </script>
 </body>

@@ -22,6 +22,7 @@ public class LoginSignupController {
     @PostMapping("/login")
     public ResponseEntity<TokenResponseDto> login(@RequestBody LoginRequestDto requestDto) {
         TokenResponseDto token = loginSignupService.login(requestDto);
+        System.out.println("🔑 반환되는 토큰: " + token.getToken());
         return ResponseEntity.ok(token);
     }
 
