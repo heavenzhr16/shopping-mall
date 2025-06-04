@@ -1,6 +1,7 @@
 package org.example.review;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,19 +25,21 @@ public class ReviewController {
             @PathVariable Long productId,
             @RequestParam(defaultValue = "recommend")String sort,
             @RequestParam(required = false) List<Integer> ratings,
-            @RequestParam(required = false) String keyword){
+            @RequestParam(required = false) String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size ){
 
-        // 리뷰 리스트
-        List<ReviewResponse> reviewList = reviewService.getSortedReviewsByProductId(productId, sort, ratings, keyword)
-                .stream()
-                .map(ReviewResponse::from)
-                .collect(Collectors.toList());
+        Page<ReviewResponse> reviewPage = reviewService.getPagedReviewsByProductId(
+                productId, sort, ratings, keyword, page, size
+        );
+
 
         // 별점 표시
         Map<String,Object> ratingSummary = reviewService.getRatingSummaryByProductId(productId);
 
         ModelAndView mv = new ModelAndView("review/list"); // 앞에 productId 붙여야함 추후 수정
-        mv.addObject("reviewList", reviewList);
+        mv.addObject("reviewList", reviewPage.getContent());
+        mv.addObject("page", reviewPage);
         mv.addObject("productId",productId);
         mv.addObject("sort",sort);
         mv.addObject("ratings", ratings);
@@ -47,7 +50,7 @@ public class ReviewController {
         mv.addObject("ratingCounts", ratingSummary.get("ratingCounts"));
 
         // 검색어
-        mv.addObject("ratings", ratings);
+        mv.addObject("keyword", keyword);
 
         return mv;
 

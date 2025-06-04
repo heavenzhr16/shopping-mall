@@ -4,6 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.entity.ProductsEntity;
 import org.example.entity.ReviewsEntity;
 import org.example.entity.UsersEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -114,6 +118,50 @@ public class ReviewService {
 
         reviewRepository.delete(review);
     }
+
+    public Page<ReviewResponse> getPagedReviewsByProductId(Long productId, String sort, List<Integer> ratings, String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page,size);
+
+        List<ReviewsEntity> all = reviewRepository.findByProduct_ProductId(productId);
+
+        // 별점 필터
+        if (ratings != null && !ratings.isEmpty()) {
+            all = all.stream()
+                    .filter(r -> r.getRating() != null && ratings.contains(r.getRating()))
+                    .collect(Collectors.toList());
+        }
+
+        // 검색 기능
+        if (keyword != null && !keyword.isBlank()) {
+            all = all.stream()
+                    .filter(r -> r.getReviewTitle().contains(keyword) || r.getReviewContent().contains(keyword))
+                    .collect(Collectors.toList());
+        }
+
+        // 정렬
+        if ("latest".equals(sort)) {
+            all.sort(Comparator.comparing(ReviewsEntity::getReviewId).reversed());
+        } else if ("rating".equals(sort)) {
+            all.sort(Comparator.comparing(ReviewsEntity::getRating).reversed());
+        } else if ("recommend".equals(sort)) {
+            all = all.stream()
+                    .filter(r -> r.getReviewImages() != null && !r.getReviewImages().isBlank())
+                    .sorted(Comparator.comparing(ReviewsEntity::getReviewId).reversed())
+                    .collect(Collectors.toList());
+        }
+
+        // 페이징 처리 (자바 메모리 내에서)
+        // QueryDSL 나 Spring Data JPA의 Page<ReviewsEntity> 사용X
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), all.size());
+
+        List<ReviewResponse> content = all.subList(start, end).stream()
+                .map(ReviewResponse::from)
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(content, pageable, all.size());
+    }
+
     // 별점 계산
     public Map<String, Object> getRatingSummaryByProductId(Long productId){
         List<ReviewsEntity> reviews = reviewRepository.findByProduct_ProductId(productId);
