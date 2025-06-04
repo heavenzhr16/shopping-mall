@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LimitedTimeProductRepository extends JpaRepository<LimitedTimeProductEntity, Long> {
-    @Query("SELECT c.name FROM CategoriesEntity c")
+    @Query(value = "SELECT DISTINCT limited_category FROM limited_time_products", nativeQuery = true)
     List<String> findAllCategoryNames();
 
     List<LimitedTimeProductEntity> findByLimitedCategory(String categoryName);

@@ -35,6 +35,7 @@ public class LimitedTimeProductService {
 
     public LimitedUserResponseDto getLimitedTimeProductsAsMap() {
         List<String> limitedCategories = limitedTimeProductRepository.findAllCategoryNames();
+        log.info("조회된 카테고리 목록: {}", limitedCategories);
 
         Map<String, List<ProductSummaryDto>> responseMap = new HashMap<>();
 

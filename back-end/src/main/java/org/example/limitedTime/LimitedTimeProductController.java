@@ -55,7 +55,8 @@ public class LimitedTimeProductController {
         log.info("관리자 한정 시간 상품 등록 요청: {}", products);
 
         // 토큰에서 사용자 이름 추출
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = "admin01"; // 테스트용으로 admin으로 설정
 
         limitedTimeProductService.changeProducts(products, username);
 
@@ -71,7 +72,8 @@ public class LimitedTimeProductController {
         log.info("관리자 한정 시간 상품 일부 추가 요청: {}", products);
 
         // 토큰에서 사용자 이름 추출
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = "admin01"; // 테스트용으로 admin으로 설정
 
         limitedTimeProductService.addProducts(products, username);
 
@@ -99,7 +101,7 @@ public class LimitedTimeProductController {
         return ResponseEntity.ok().build();
     }
 
-    // 일부 상품의 할인율, 카테고리 변경 변경
+    // 일부 상품의 할인율, 카테고리 변경
 //    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/updateProducts")
     public ResponseEntity<?> updateLimitedTimeProducts(
@@ -108,7 +110,8 @@ public class LimitedTimeProductController {
         log.info("관리자 한정 시간 상품 일부 업데이트 요청: {}", dto);
 
         // 토큰에서 사용자 이름 추출
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = "admin01"; // 테스트용으로 admin으로 설정
         limitedTimeProductService.updateLimitedTimeProducts(dto, username);
 
         return ResponseEntity.ok().build();
