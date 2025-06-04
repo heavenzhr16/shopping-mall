@@ -12,6 +12,7 @@ import org.example.limitedTime.dto.LimitedUserResponseDto;
 import org.example.limitedTime.dto.UpdateProductDto;
 import org.example.mainView.ProductsRepository;
 import org.example.mainView.ReviewsRepository;
+import org.example.mainView.dto.MainProductDto;
 import org.example.mainView.dto.ProductSummaryDto;
 import org.springframework.stereotype.Service;
 
@@ -214,4 +215,26 @@ public class LimitedTimeProductService {
         log.info("한정 시간 상품 업데이트 완료: ID={}, 할인율={}, 카테고리={}, 관리자={}",
                 searchId, dto.getDiscountRate(), dto.getCategory(), admin.getUsername());
     }
+
+    public List<ProductSummaryDto> getAllProducts() {
+        // 1. 전체 상품 조회
+        List<ProductsEntity> allProducts = productsRepository.findAll();
+
+        // 2. 상품 ID 목록 추출
+        List<Long> productIds = allProducts.stream()
+                .map(ProductsEntity::getProductId)
+                .collect(Collectors.toList());
+
+        // 3. 각 상품별 리뷰 수 조회 (Map<ProductId, ReviewCount>)
+        Map<Long, Long> reviewCounts = reviewsRepository.countReviewsByProductIds(productIds);
+
+        // 4. DTO로 변환하면서 리뷰 수 포함
+        return allProducts.stream()
+                .map(product -> {
+                    long reviewCount = reviewCounts.getOrDefault(product.getProductId(), 0L);
+                    return new ProductSummaryDto(product, reviewCount);
+                })
+                .collect(Collectors.toList());
+    }
+
 }
