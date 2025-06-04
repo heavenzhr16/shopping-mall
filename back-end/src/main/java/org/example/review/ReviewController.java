@@ -24,9 +24,10 @@ public class ReviewController {
     @GetMapping("/{productId}")
     public ModelAndView listReviewByProductId(
             @PathVariable Long productId,
-            @RequestParam(defaultValue = "recommend")String sort){
+            @RequestParam(defaultValue = "recommend")String sort,
+            @RequestParam(required = false) List<Integer> ratings){
         
-        List<ReviewResponse> reviewList = reviewService.getSortedReviewsByProductId(productId, sort)
+        List<ReviewResponse> reviewList = reviewService.getSortedReviewsByProductId(productId, sort, ratings)
                 .stream()
                 .map(ReviewResponse::from)
                 .collect(Collectors.toList());
@@ -35,6 +36,7 @@ public class ReviewController {
         mv.addObject("reviewList", reviewList);
         mv.addObject("productId",productId);
         mv.addObject("sort",sort);
+        mv.addObject("ratings", ratings);
 
         return mv;
 
