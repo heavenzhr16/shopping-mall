@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -21,9 +22,11 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping("/{productId}")
-    public ModelAndView listReviewByProductId(@PathVariable Long productId){
+    public ModelAndView listReviewByProductId(
+            @PathVariable Long productId,
+            @RequestParam(defaultValue = "recommend")String sort){
         
-        List<ReviewResponse> reviewList = reviewService.getReviewsByProductId(productId)
+        List<ReviewResponse> reviewList = reviewService.getSortedReviewsByProductId(productId, sort)
                 .stream()
                 .map(ReviewResponse::from)
                 .collect(Collectors.toList());
@@ -31,6 +34,7 @@ public class ReviewController {
         ModelAndView mv = new ModelAndView("review/list"); // 앞에 productId 붙여야함 추후 수정
         mv.addObject("reviewList", reviewList);
         mv.addObject("productId",productId);
+        mv.addObject("sort",sort);
 
         return mv;
 
