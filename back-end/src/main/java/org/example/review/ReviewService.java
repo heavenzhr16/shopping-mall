@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.entity.ReviewsEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -46,6 +44,36 @@ public class ReviewService {
 
         return reviews;
 
+    }
+
+    public Map<String, Object> getRatingSummaryByProductId(Long productId){
+        List<ReviewsEntity> reviews = reviewRepository.findByProduct_ProductId(productId);
+
+        long total = reviews.size();
+        double average = reviews.stream()
+                .mapToInt(ReviewsEntity::getRating)
+                .average()
+                .orElse(0.0);
+
+        // 별점, 별점별 개수
+        Map<Integer, Long> ratingCounts = reviews.stream()
+                .collect(Collectors.groupingBy(
+                        ReviewsEntity::getRating,
+                        Collectors.counting()
+                ));
+
+        // 없는 값은 0으로 채움
+        for (int i = 1; i <= 5; i++){
+            // 해당 key가 없으면 0L 을 넣고 있으면 아무것도 안 함
+            ratingCounts.putIfAbsent(i, 0L);
+        }
+
+        Map<String, Object> summary = new HashMap<>();
+        summary.put("totalReviews", total);
+        summary.put("averageRating", Math.round(average * 10.0) / 10.0); // 소수점 1자리 반올림
+        summary.put("ratingCounts", ratingCounts);
+
+        return summary;
     }
 
 

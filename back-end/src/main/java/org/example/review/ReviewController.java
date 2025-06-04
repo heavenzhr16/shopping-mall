@@ -26,17 +26,26 @@ public class ReviewController {
             @PathVariable Long productId,
             @RequestParam(defaultValue = "recommend")String sort,
             @RequestParam(required = false) List<Integer> ratings){
-        
+
+        // 리뷰 리스트
         List<ReviewResponse> reviewList = reviewService.getSortedReviewsByProductId(productId, sort, ratings)
                 .stream()
                 .map(ReviewResponse::from)
                 .collect(Collectors.toList());
+
+        // 별점 표시
+        Map<String,Object> ratingSummary = reviewService.getRatingSummaryByProductId(productId);
 
         ModelAndView mv = new ModelAndView("review/list"); // 앞에 productId 붙여야함 추후 수정
         mv.addObject("reviewList", reviewList);
         mv.addObject("productId",productId);
         mv.addObject("sort",sort);
         mv.addObject("ratings", ratings);
+
+        // 별점 요약 정보
+        mv.addObject("averageRating", ratingSummary.get("averageRating"));
+        mv.addObject("totalReviews", ratingSummary.get("totalReviews"));
+        mv.addObject("ratingCounts", ratingSummary.get("ratingCounts"));
 
         return mv;
 
