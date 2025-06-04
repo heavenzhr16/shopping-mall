@@ -2,11 +2,9 @@ package org.example.review;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -53,6 +51,27 @@ public class ReviewController {
 
         return mv;
 
+    }
+
+    @PostMapping
+    public ResponseEntity<ReviewResponse> createReview(@RequestBody ReviewRequest req){
+        ReviewResponse savedReview = reviewService.createReview(req);
+        return  ResponseEntity.ok(savedReview);
+    }
+
+    @PutMapping("/{reviewId}")
+    public ResponseEntity<ReviewResponse> updateReview(
+            @PathVariable Long reviewId,
+            @RequestBody ReviewRequest req
+    ){
+        ReviewResponse updateReview = reviewService.updateReview(reviewId, req);
+        return ResponseEntity.ok(updateReview);
+    }
+
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId){
+        reviewService.deleteReview(reviewId);
+        return ResponseEntity.noContent().build();
     }
 
 }
