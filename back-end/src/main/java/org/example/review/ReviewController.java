@@ -25,10 +25,11 @@ public class ReviewController {
     public ModelAndView listReviewByProductId(
             @PathVariable Long productId,
             @RequestParam(defaultValue = "recommend")String sort,
-            @RequestParam(required = false) List<Integer> ratings){
+            @RequestParam(required = false) List<Integer> ratings,
+            @RequestParam(required = false) String keyword){
 
         // 리뷰 리스트
-        List<ReviewResponse> reviewList = reviewService.getSortedReviewsByProductId(productId, sort, ratings)
+        List<ReviewResponse> reviewList = reviewService.getSortedReviewsByProductId(productId, sort, ratings, keyword)
                 .stream()
                 .map(ReviewResponse::from)
                 .collect(Collectors.toList());
@@ -46,6 +47,9 @@ public class ReviewController {
         mv.addObject("averageRating", ratingSummary.get("averageRating"));
         mv.addObject("totalReviews", ratingSummary.get("totalReviews"));
         mv.addObject("ratingCounts", ratingSummary.get("ratingCounts"));
+
+        // 검색어
+        mv.addObject("ratings", ratings);
 
         return mv;
 

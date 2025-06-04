@@ -13,13 +13,24 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
 
-    public List<ReviewsEntity> getSortedReviewsByProductId(Long productId, String sort, List<Integer> ratings) {
+    public List<ReviewsEntity> getSortedReviewsByProductId(Long productId, String sort, List<Integer> ratings, String keyword) {
         List<ReviewsEntity> reviews = reviewRepository.findByProduct_ProductId(productId);
 
         // 별점 필터
         if (ratings != null && !ratings.isEmpty()){
             reviews = reviews.stream()
                     .filter(r -> r.getRating() != null && ratings.contains(r.getRating()))
+                    .collect(Collectors.toList());
+        }
+
+        // 키워드 검색
+        if (keyword != null && !keyword.isBlank()){
+            String lowerKeyword = keyword.toLowerCase();
+            reviews = reviews.stream()
+                    .filter(r ->
+                            (r.getReviewTitle() != null && r.getReviewTitle().toLowerCase().contains(lowerKeyword)) ||
+                                    (r.getReviewContent() != null && r.getReviewContent().toLowerCase().contains(lowerKeyword))
+                    )
                     .collect(Collectors.toList());
         }
 
