@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 리뷰</title>
+    <style>
+        body { font-family: sans-serif; }
+        .review-header, .review-card { border-bottom: 1px solid #ddd; padding: 16px 0; }
+        .review-score { font-size: 24px; font-weight: bold; color: #ffa500; }
+        .review-stats, .review-photo-list, .review-tags { margin: 16px 0; }
+        .review-card { display: flex; flex-direction: column; gap: 8px; }
+        .review-meta, .review-user { font-size: 14px; color: #666; }
+        .photo-thumbnails img, .review-images img { width: 80px; height: 80px; object-fit: cover; margin-right: 8px; }
+        .review-content { margin-top: 8px; }
+    </style>
+</head>
+<body>
+
+<section class="review-header">
+    <h2>REVIEW (221)</h2>
+    <div class="review-score">⭐ 4.9</div>
+    <p>99%의 구매자가 이 상품을 좋아합니다.</p>
+
+    <div class="review-stats">
+        <p><strong>아주 좋아요</strong>: 196</p>
+        <p>맘에 들어요: 23</p>
+        <p>보통이에요: 2</p>
+        <p>그냥 그래요: 0</p>
+        <p>별로예요: 0</p>
+    </div>
+</section>
+
+<section class="review-photo-list">
+    <h3>포토 & 동영상 (167)</h3>
+    <div class="photo-thumbnails">
+        <img src="/img/review1.jpg" alt="review photo">
+        <img src="/img/review1.jpg" alt="review photo">
+        <img src="/img/review1.jpg" alt="review photo">
+        <!-- ... -->
+    </div>
+</section>
+
+<section class="review-tags">
+    <label>정렬:</label>
+    <select>
+        <option>추천순</option>
+        <option>최신순</option>
+        <option>평점순</option>
+    </select>
+    <input type="text" placeholder="리뷰 키워드 검색">
+</section>
+
+<section class="review-list">
+
+    <div class="review-card">
+        <div class="review-meta">
+            <strong>★★★★★ 아주 좋아요</strong> — <span>2024.2.4</span>
+        </div>
+        <div class="review-content">
+            <p>
+                제가 하체도 좀 있고요! 큰 키 스펙인데 입어본 중에 제일 예뻤어요~
+                원단도 탄탄하고 부해 보이지 않아서 추천합니다!
+            </p>
+            <div class="review-images">
+                <img src="/img/review2.jpg" alt="review image">
+                <img src="/img/review2.jpg" alt="review image">
+            </div>
+        </div>
+        <div class="review-user">
+            키 168cm | 몸무게 51kg<br>
+            평소사이즈: 하의 26<br>
+            Color: VINTAGE INDIGO<br>
+            Size: 8070
+        </div>
+    </div>
+
+    <div class="review-card">
+        <div class="review-meta">
+            <strong>★★★★★ 아주 좋아요</strong> — <span>2024.2.16</span>
+        </div>
+        <div class="review-content">
+            <p>
+                너무 예뻐요! 은근한 워싱도 예쁘고 핏이 예뻐서 만족입니다.
+            </p>
+            <div class="review-images">
+                <img src="/img/review3.jpg" alt="review image">
+            </div>
+        </div>
+        <div class="review-user">
+            키 168cm | 몸무게 50kg<br>
+            평소사이즈: 하의 27<br>
+            Color: LIGHT INDIGO<br>
+            Size: M(076)
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>

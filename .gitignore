@@ -1,0 +1,29 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Java
+*.class
+
+# 백엔드 환경변수 파일 무시
+/back-end/.env
+
+# 백엔드 MySQL 데이터 폴더 무시
+/back-end/mysql-data/
+
+# YAML 설정 파일 무시
+*.yml

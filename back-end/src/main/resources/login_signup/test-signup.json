@@ -1,0 +1,9 @@
+{
+  "username": "testuser",
+  "email": "testuser@example.com",
+  "password": "password123!",
+  "birthdate": "2000-01-01",
+  "nickname": "테스트유저",
+  "phoneNum": 1012345678,
+  "loginType": "DEFAULT"
+}
