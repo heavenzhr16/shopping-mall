@@ -17,6 +17,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+
     // Spring MVC 웹 개발을 위한 기본 스타터 (내장 톰캣 + 스프링 MVC 포함)
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
