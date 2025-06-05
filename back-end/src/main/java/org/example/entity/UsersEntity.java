@@ -14,6 +14,7 @@ import java.util.List;
 public class UsersEntity {
     // Getters and Setters
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
 

@@ -41,7 +41,6 @@ public class LoginSignupService {
                 : UUID.randomUUID().toString();
 
         UsersEntity user = new UsersEntity();
-        user.setUserId(request.getUserId());
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(encodedPassword);
