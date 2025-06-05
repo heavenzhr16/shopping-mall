@@ -35,7 +35,8 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(
                         "/api/auth/**",
-                        "/public/**"    // 접근 퍼블릭 예시 >> 이건 수정해야함
+                        "/public/**",    // 접근 퍼블릭 예시 >> 이건 수정해야함
+                        "/api/products/**"
                 ).permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")  // ✅ 관리자 전용 >> 이건 수정해야함
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN") // ✅ 일반 사용자 & 관리자 접근 >> 이건 수정해야함
