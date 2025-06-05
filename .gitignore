@@ -6,6 +6,9 @@ build/
 # IntelliJ
 .idea/
 *.iml
+git rm --cached .idea/libraries/Gradle__org_springframework_spring_context_5_3_29.xml
+git rm --cached .idea/modules/back-end.main.iml
+git rm --cached .idea/modules/back-end.test.iml
 *.iws
 out/
 
