@@ -76,6 +76,9 @@ public class ProductsEntity {
     )
     private List<ColorEntity> colors;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductOptionsEntity> productOptions;
+
     // 기본 생성자
     public ProductsEntity() {}
 
