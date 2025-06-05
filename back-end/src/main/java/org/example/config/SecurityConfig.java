@@ -49,7 +49,8 @@ public class SecurityConfig {
                         "/test",
                         "/review/**",
                         "/main/**",    // ✅ 메인 페이지 상품 리스트 요청
-                        "/timeSale/**" // ✅ 한정 시간 상품 조회
+                        "/timeSale/**", // ✅ 한정 시간 상품 조회
+                        "/api/search/**"
                 ).permitAll()
                 .antMatchers("/admin/**", "/timeSale/changeProducts").hasRole("ADMIN")  // ✅ 관리자 전용 >> 이건 수정해야함
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN") // ✅ 일반 사용자 & 관리자 접근 >> 이건 수정해야함
