@@ -9,17 +9,27 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // 공통 메서드: 에러코드와 메시지를 받아 200 OK 응답 반환
-    private ResponseEntity<Map<String, Object>> buildErrorResponse(String errorCode, String message) {
-        return ResponseEntity.ok(Map.of(
-                "status", 200,
-                "errorCode", errorCode,
-                "message", message
-        ));
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<Map<String, Object>> handleCustomException(CustomException e) {
+        ErrorCode errorCode = e.getErrorCode();
+        return ResponseEntity
+            .status(errorCode.getStatus())
+            .body(Map.of(
+                "status", errorCode.getStatus(),
+                "errorCode", errorCode.getCode(),
+                "message", errorCode.getMessage()
+            ));
     }
-    // 예외가 지정되지 않은 경우의 기본 처리
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGenericException(Exception e) {
-        return buildErrorResponse("INTERNAL_ERROR", "알 수 없는 오류가 발생했습니다.");
+        ErrorCode errorCode = ErrorCode.INTERNAL_ERROR;
+        return ResponseEntity
+            .status(errorCode.getStatus())
+            .body(Map.of(
+                "status", errorCode.getStatus(),
+                "errorCode", errorCode.getCode(),
+                "message", errorCode.getMessage()
+            ));
     }
 }
