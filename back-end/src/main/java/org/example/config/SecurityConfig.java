@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; // ✅ 추가
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -18,6 +19,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
+
+    // ✅ 비밀번호 암호화를 위한 빈 등록
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     // 인증 매니저
     @Bean
@@ -35,10 +42,16 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(
                         "/api/auth/**",
-                        "/public/**",    // 접근 퍼블릭 예시 >> 이건 수정해야함
-                        "/api/products/**"
+                        "/public/**",
+                        "/api/products/**",
+                        "/login_signup/**", // 박준형 : 로그인, 회원가입 임시테스트
+                        "/",
+                        "/test",
+                        "/review/**",
+                        "/main/**",    // ✅ 메인 페이지 상품 리스트 요청
+                        "/timeSale/**" // ✅ 한정 시간 상품 조회
                 ).permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")  // ✅ 관리자 전용 >> 이건 수정해야함
+                .antMatchers("/admin/**", "/timeSale/changeProducts").hasRole("ADMIN")  // ✅ 관리자 전용 >> 이건 수정해야함
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN") // ✅ 일반 사용자 & 관리자 접근 >> 이건 수정해야함
                 .anyRequest().authenticated()
                 .and()
@@ -46,5 +59,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
 }
