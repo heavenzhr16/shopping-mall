@@ -42,6 +42,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(
                         "/api/auth/**",
+<<<<<<< HEAD
                         "/public/**",
                         "/login_signup/**", // 박준형 : 로그인, 회원가입 임시테스트
                         "/",
@@ -49,6 +50,17 @@ public class SecurityConfig {
                 ).permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+=======
+
+                        "/review/**",
+
+                        "/main/**",    // ✅ 메인 페이지 상품 리스트 요청
+                        "/timeSale/**" // ✅ 한정 시간 상품 조회
+
+                ).permitAll()
+                .antMatchers("/admin/**", "/timeSale/changeProducts").hasRole("ADMIN")  // ✅ 관리자 전용 >> 이건 수정해야함
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN") // ✅ 일반 사용자 & 관리자 접근 >> 이건 수정해야함
+>>>>>>> 4155211dd837ee599b5279362cd727339fa5ae23
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
