@@ -25,5 +25,5 @@ Thumbs.db
 # 백엔드 MySQL 데이터 폴더 무시
 /back-end/mysql-data/
 
-# YAML 설정 파일 무시 (필요시 경로 맞춰서 수정)
+# YAML 설정 파일 무시
 *.yml
